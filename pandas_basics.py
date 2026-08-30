@@ -31,3 +31,15 @@ print(df2)
 # Group by location
 grouped = df2.groupby("location")["price"].mean()
 print(grouped)
+
+# Apply a function to a column
+df2["price_category"] = df2["price"].apply(lambda x: "peak" if x > 70 else "off-peak")
+print(df2[["hour", "price", "price_category"]])
+
+# Simulate missing data
+df2.loc[2, "price"] = None
+print(f"\nMissing values:\n{df2.isnull().sum()}")
+
+# Fill missing values with column mean
+df2["price"] = df2["price"].fillna(df2["price"].mean())
+print(f"\nAfter filling missing values:\n{df2}")
